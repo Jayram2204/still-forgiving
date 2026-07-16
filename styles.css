@@ -51,6 +51,7 @@ body {
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 a { color: inherit; text-decoration: none; touch-action: manipulation; }
@@ -77,6 +78,7 @@ img { display: block; max-width: 100%; height: auto; }
   border: 2px solid var(--burgundy);
   border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
   position: relative;
+  overflow: visible;
 }
 
 .wobbly-border::before {
@@ -87,6 +89,16 @@ img { display: block; max-width: 100%; height: auto; }
   border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
   pointer-events: none;
   opacity: 0.3;
+}
+
+/* On narrow screens, simplify the border to prevent clipping */
+@media (max-width: 480px) {
+  .wobbly-border {
+    border-radius: 16px;
+  }
+  .wobbly-border::before {
+    border-radius: 20px;
+  }
 }
 
 
@@ -1211,6 +1223,16 @@ img { display: block; max-width: 100%; height: auto; }
 
 
 /* ============================================
+   SECTION DIVIDER — Emotional bridge
+   ============================================ */
+.section-divider {
+  text-align: center;
+  padding: var(--space-sm) 0;
+  opacity: 0.6;
+}
+
+
+/* ============================================
    MAKE ME SMILE
    ============================================ */
 .smile {
@@ -1424,9 +1446,9 @@ img { display: block; max-width: 100%; height: auto; }
    ============================================ */
 @media (max-width: 480px) {
   :root {
-    --space-xl: 2.5rem;
-    --space-2xl: 3.5rem;
-    --space-lg: 2rem;
+    --space-xl: 1.8rem;
+    --space-2xl: 2.2rem;
+    --space-lg: 1.5rem;
   }
 
   /* Gate */
@@ -1480,7 +1502,6 @@ img { display: block; max-width: 100%; height: auto; }
     width: 100%;
   }
 
-  /* On mobile, only show one message at a time (JS handles visibility) */
   .hero__message:not(.hero__message--visible) {
     display: none;
   }
@@ -1490,8 +1511,8 @@ img { display: block; max-width: 100%; height: auto; }
   }
 
   .hero__cat {
-    transform: scale(0.6);
-    margin-top: var(--space-sm);
+    transform: scale(0.55);
+    margin-top: 0.5rem;
   }
 
   .hero__doodle-corner {
@@ -1506,43 +1527,83 @@ img { display: block; max-width: 100%; height: auto; }
   }
 
   .scroll-cue {
-    bottom: 1.5rem;
+    bottom: 1rem;
+    font-size: 0.65rem;
   }
 
-  /* Nav */
+  /* Sticky compact nav — becomes a horizontal jump bar */
   .nav {
-    padding: var(--space-xl) var(--space-sm);
-    gap: var(--space-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0.6rem var(--space-sm);
+    gap: 0.5rem;
+    background: var(--parchment);
+    border-bottom: 1px solid var(--parchment-dark);
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
   }
 
   .nav__btn {
-    padding: var(--space-sm) var(--space-md);
-    gap: 0.75rem;
+    padding: 0.5rem 0.9rem;
+    gap: 0.4rem;
+    flex-shrink: 0;
+    border-radius: 10px;
+    box-shadow: none;
+    border: 1px solid var(--parchment-dark);
+    background: var(--white);
+    max-width: none;
+    min-width: 0;
+  }
+
+  .nav__btn:hover,
+  .nav__btn:active {
+    box-shadow: none;
+    border-color: var(--dusty-rose);
   }
 
   .nav__icon {
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
   }
 
   .nav__icon svg {
-    width: 26px;
-    height: 26px;
+    width: 18px;
+    height: 18px;
   }
 
   .nav__label {
-    font-size: 1.05rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    white-space: nowrap;
   }
 
-  /* Crimes */
+  .nav__heartbeat-divider {
+    display: none;
+  }
+
+  /* Crimes — tight top padding since nav is sticky above */
   .crimes {
-    padding: var(--space-xl) var(--space-sm);
+    padding: var(--space-lg) var(--space-sm) var(--space-xl);
+  }
+
+  .section-title {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    margin-bottom: var(--space-md);
   }
 
   .crimes__item {
-    padding: var(--space-sm);
+    padding: 0.75rem var(--space-sm);
     font-size: 0.95rem;
-    gap: 0.65rem;
+    gap: 0.6rem;
   }
 
   .crimes__bullet svg {
@@ -1556,7 +1617,7 @@ img { display: block; max-width: 100%; height: auto; }
 
   /* Evidence */
   .evidence {
-    padding: var(--space-xl) var(--space-sm);
+    padding: var(--space-lg) var(--space-sm) var(--space-xl);
   }
 
   .evidence__card {
@@ -1574,7 +1635,7 @@ img { display: block; max-width: 100%; height: auto; }
 
   /* Offering */
   .offering {
-    padding: var(--space-xl) var(--space-sm);
+    padding: var(--space-lg) var(--space-sm) var(--space-xl);
   }
 
   .offering__layout {
@@ -1598,61 +1659,82 @@ img { display: block; max-width: 100%; height: auto; }
   .offering__letter-wrap {
     padding: var(--space-md) var(--space-sm);
     border-radius: var(--radius);
+    width: 100%;
+  }
+
+  .offering__letter {
+    border-radius: var(--radius) !important;
   }
 
   .offering__letter p {
     font-size: 0.9rem;
     line-height: 1.65;
-    margin-bottom: var(--space-sm);
+    margin-bottom: 0.75rem;
   }
 
   .offering__letter p:first-child {
     font-size: 1.15rem;
+    margin-bottom: var(--space-sm);
   }
 
   .offering__sign-off {
     font-size: 1rem !important;
+    margin-top: var(--space-sm) !important;
   }
 
   /* Meter */
   .meter-section {
-    padding: var(--space-xl) var(--space-sm);
+    padding: var(--space-lg) var(--space-sm);
   }
 
   .meter__cat {
-    transform: scale(0.7);
+    transform: scale(0.65);
+    margin-bottom: 0.25rem;
   }
 
   .meter__track {
-    height: 18px;
+    height: 16px;
   }
 
   .meter__label {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
   }
 
   .meter__percent {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Transition divider between meter and smile */
+  .section-divider {
+    display: block;
+    text-align: center;
+    padding: 0.5rem 0;
+    color: var(--mauve);
+    opacity: 0.5;
+    font-size: 1.4rem;
+    letter-spacing: 0.3em;
   }
 
   /* Smile */
   .smile {
-    padding: var(--space-xl) var(--space-sm) var(--space-lg);
+    padding: var(--space-md) var(--space-sm) var(--space-lg);
   }
 
   .smile__card {
-    padding: var(--space-lg) var(--space-md);
+    padding: var(--space-md) var(--space-sm);
   }
 
   .smile__compliment {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     min-height: 2.5em;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
   }
 
   .smile__btn {
-    padding: 0.6rem 1.4rem;
-    font-size: 0.9rem;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.85rem;
   }
 
   .smile__doodle-left,
@@ -1660,46 +1742,42 @@ img { display: block; max-width: 100%; height: auto; }
     display: none;
   }
 
-  /* Footer */
+  /* Footer — generous bottom padding for safe area */
   .footer {
-    padding: var(--space-lg) var(--space-sm) var(--space-md);
+    padding: var(--space-md) var(--space-sm) calc(var(--space-md) + env(safe-area-inset-bottom, 20px));
   }
 
   .footer__characters {
-    transform: scale(0.85);
+    transform: scale(0.8);
   }
 
   .footer__char-scene {
-    width: 120px;
-    height: 48px;
+    width: 110px;
+    height: 44px;
   }
 
   .footer__heartbeat {
     width: 80vw;
-    height: 30px;
+    height: 28px;
+    margin-bottom: 0.75rem;
   }
 
   .footer__text {
-    font-size: 0.95rem;
-  }
-
-  /* Section titles */
-  .section-title {
-    font-size: clamp(1.4rem, 5vw, 2rem);
-    margin-bottom: var(--space-lg);
+    font-size: 0.9rem;
   }
 
   /* Touch improvements */
-  .bouncy-btn {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .nav__btn {
-    -webkit-tap-highlight-color: transparent;
-  }
-
+  .bouncy-btn,
+  .nav__btn,
   .smile__btn {
     -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Grounded divider between letter and meter */
+  .offering + .meter-section {
+    border-top: 1px dashed var(--parchment-dark);
+    margin-top: 0;
+    padding-top: var(--space-lg);
   }
 }
 
@@ -1709,9 +1787,9 @@ img { display: block; max-width: 100%; height: auto; }
    ============================================ */
 @media (max-width: 360px) {
   :root {
-    --space-xl: 2rem;
-    --space-2xl: 3rem;
-    --space-lg: 1.5rem;
+    --space-xl: 1.4rem;
+    --space-2xl: 1.8rem;
+    --space-lg: 1.2rem;
   }
 
   .gate__question {
@@ -1735,16 +1813,23 @@ img { display: block; max-width: 100%; height: auto; }
     transform: scale(0.45);
   }
 
+  .nav {
+    padding: 0.4rem 0.5rem;
+    gap: 0.35rem;
+  }
+
   .nav__btn {
-    padding: 0.75rem 1rem;
+    padding: 0.4rem 0.7rem;
+    gap: 0.3rem;
   }
 
   .nav__label {
-    font-size: 0.95rem;
+    font-size: 0.72rem;
   }
 
   .crimes__item {
     font-size: 0.9rem;
+    padding: 0.6rem 0.75rem;
   }
 
   .evidence__text {
@@ -1755,8 +1840,24 @@ img { display: block; max-width: 100%; height: auto; }
     font-size: 0.85rem;
   }
 
+  .meter__cat {
+    transform: scale(0.55);
+  }
+
+  .meter__track {
+    height: 14px;
+  }
+
   .smile__compliment {
-    font-size: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .smile__card {
+    padding: var(--space-md) var(--space-sm);
+  }
+
+  .section-divider {
+    padding: 0.3rem 0;
   }
 }
 
