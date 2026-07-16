@@ -219,6 +219,7 @@
         playBtn.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
         playBtn.setAttribute('aria-label', 'Pause');
         if (vinyl) vinyl.classList.add('spinning');
+        playBtn.classList.add('pulsing');
 
         $$('.music-note').forEach(function (n) { n.style.opacity = ''; });
 
@@ -231,6 +232,7 @@
         playBtn.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="6 3 20 12 6 21"/></svg>';
         playBtn.setAttribute('aria-label', 'Play');
         if (vinyl) vinyl.classList.remove('spinning');
+        playBtn.classList.remove('pulsing');
 
         $$('.music-note').forEach(function (n) { n.style.opacity = '0'; });
 

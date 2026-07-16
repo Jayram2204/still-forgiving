@@ -171,6 +171,15 @@ img { display: block; max-width: 100%; height: auto; }
 .doodle--crimes-sq { top: 0; right: 10%; }
 .doodle--crimes-star { bottom: 8%; left: 6%; animation-delay: 0.5s; }
 
+/* Rate doodles */
+.doodle--rate-sp1 { top: 2%; left: 8%; animation-delay: 0s; }
+.doodle--rate-sp2 { top: 15%; right: 6%; animation-delay: 0.8s; }
+.doodle--rate-sp3 { bottom: 12%; left: 15%; animation-delay: 1.4s; }
+.doodle--rate-h1 { top: 8%; right: 15%; animation-delay: 0.3s; }
+
+/* Feelings sprout */
+.doodle--feelings-sprout { top: -5px; right: 10%; animation: sproutSway 3s var(--ease-in-out) infinite; }
+
 @keyframes twinkle {
   0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
   50% { opacity: 1; transform: scale(1.2) rotate(15deg); }
@@ -192,6 +201,11 @@ img { display: block; max-width: 100%; height: auto; }
 @keyframes floatHeart {
   0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
   50% { transform: translateY(-10px) rotate(8deg); opacity: 0.8; }
+}
+
+@keyframes sproutSway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(4deg); }
 }
 
 
@@ -470,6 +484,20 @@ img { display: block; max-width: 100%; height: auto; }
   20% { opacity: 0.7; }
   80% { opacity: 0.3; }
   100% { opacity: 0; transform: translateY(-30px) rotate(15deg); }
+}
+
+/* Drawn musical note doodle next to player */
+.player__note-doodle {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  animation: noteFloatSmall 2.5s var(--ease-in-out) infinite;
+  z-index: 3;
+}
+
+@keyframes noteFloatSmall {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+  50% { transform: translateY(-6px) rotate(8deg); opacity: 0.9; }
 }
 
 
@@ -815,9 +843,15 @@ img { display: block; max-width: 100%; height: auto; }
   animation-delay: 1.2s, 1.2s;
 }
 
-@keyframes scrollBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
+.scroll-cue__arrow {
+  animation: wobblyArrowBounce 2s var(--ease-in-out) infinite;
+}
+
+@keyframes wobblyArrowBounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(4px) rotate(3deg); }
+  50% { transform: translateY(8px) rotate(-2deg); }
+  75% { transform: translateY(4px) rotate(2deg); }
 }
 
 
@@ -1040,6 +1074,7 @@ img { display: block; max-width: 100%; height: auto; }
   box-shadow: 0 4px 20px rgba(107, 39, 55, 0.06);
   position: sticky;
   top: var(--space-lg);
+  overflow: visible;
 }
 
 .player__album {
@@ -1117,6 +1152,20 @@ img { display: block; max-width: 100%; height: auto; }
 .player__btn--play:hover {
   box-shadow: 0 6px 24px rgba(196, 114, 127, 0.4);
   color: var(--white);
+}
+
+/* Heartbeat pulse when playing — "dhad dhad vadhate thokyat" */
+.player__btn--play.pulsing {
+  animation: heartbeatPulse 0.8s var(--ease-in-out) infinite;
+}
+
+@keyframes heartbeatPulse {
+  0% { transform: scale(1); box-shadow: 0 4px 16px rgba(196, 114, 127, 0.3); }
+  14% { transform: scale(1.1); box-shadow: 0 6px 24px rgba(196, 114, 127, 0.5); }
+  28% { transform: scale(1); box-shadow: 0 4px 16px rgba(196, 114, 127, 0.3); }
+  42% { transform: scale(1.06); box-shadow: 0 5px 20px rgba(196, 114, 127, 0.4); }
+  56% { transform: scale(1); box-shadow: 0 4px 16px rgba(196, 114, 127, 0.3); }
+  100% { transform: scale(1); box-shadow: 0 4px 16px rgba(196, 114, 127, 0.3); }
 }
 
 .player__progress { width: 100%; }
@@ -1702,6 +1751,16 @@ img { display: block; max-width: 100%; height: auto; }
     height: 46px;
   }
 
+  .player__note-doodle {
+    top: -6px;
+    right: -8px;
+  }
+
+  .player__note-doodle svg {
+    width: 18px;
+    height: 24px;
+  }
+
   .offering__letter-wrap {
     padding: var(--space-md) var(--space-sm);
     border-radius: var(--radius);
@@ -1731,6 +1790,7 @@ img { display: block; max-width: 100%; height: auto; }
   /* Rate section */
   .rate-section {
     padding: var(--space-lg) var(--space-sm);
+    position: relative;
   }
 
   .rate__cat {
@@ -1764,6 +1824,15 @@ img { display: block; max-width: 100%; height: auto; }
     width: 34px;
     height: 28px;
   }
+
+  /* Rate doodles — visible on mobile */
+  .doodle--rate-sp1 { top: 4%; left: 5%; }
+  .doodle--rate-sp2 { top: 12%; right: 4%; }
+  .doodle--rate-sp3 { bottom: 8%; left: 10%; }
+  .doodle--rate-h1 { display: none; }
+
+  /* Feelings sprout — visible on mobile */
+  .doodle--feelings-sprout { top: -4px; right: 6%; }
 
   /* Transition divider */
   .section-divider {
@@ -1917,6 +1986,10 @@ img { display: block; max-width: 100%; height: auto; }
     width: 30px;
     height: 30px;
   }
+
+  .doodle--rate-sp1 { top: 3%; left: 3%; }
+  .doodle--rate-sp2 { top: 10%; right: 3%; }
+  .doodle--rate-sp3 { display: none; }
 
   .smile__compliment {
     font-size: 0.95rem;
