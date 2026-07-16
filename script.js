@@ -49,7 +49,7 @@
       setTimeout(function () {
         startHeroMessages();
         initScrollReveals();
-        initMeter();
+        initStarRating();
         initFooterHeartbeat();
         initDoodleReactions();
       }, 400);
@@ -84,11 +84,10 @@
         btn.style.transform = 'translate(' + randX + 'px, ' + randY + 'px) scale(0.85)';
         btn.style.opacity = '0.3';
 
-        // Shake the card when Yes is clicked
         var card = gate ? $('.gate__card') : null;
         if (card) {
           card.style.animation = 'none';
-          card.offsetHeight; // reflow
+          card.offsetHeight;
           card.style.animation = '';
         }
 
@@ -221,7 +220,6 @@
         playBtn.setAttribute('aria-label', 'Pause');
         if (vinyl) vinyl.classList.add('spinning');
 
-        // Show music notes
         $$('.music-note').forEach(function (n) { n.style.opacity = ''; });
 
         playerTimer = setInterval(function () {
@@ -234,7 +232,6 @@
         playBtn.setAttribute('aria-label', 'Play');
         if (vinyl) vinyl.classList.remove('spinning');
 
-        // Hide music notes
         $$('.music-note').forEach(function (n) { n.style.opacity = '0'; });
 
         clearInterval(playerTimer);
@@ -245,72 +242,109 @@
 
 
     // =============================================
-    // 5. FORGIVENESS METER
+    // 5. STAR RATING (replaces forgiveness meter)
     // =============================================
-    function initMeter() {
-      var meterFill = $('#meter-fill');
-      var meterPercent = $('#meter-percent');
-      var letter = $('#letter');
+    function initStarRating() {
+      var starsContainer = $('#rate-stars');
+      var rateMessage = $('#rate-message');
+      var stars = $$('.rate__star');
+      var currentRating = 0;
       var confettiFired = false;
-      var lastMeterValue = 0;
 
-      if (!meterFill || !letter) return;
+      if (!starsContainer || !stars.length) return;
 
-      function getMeterValue() {
-        var letterRect = letter.getBoundingClientRect();
-        var letterTop = letterRect.top + window.scrollY;
-        var letterHeight = letterRect.height;
-        var scrollY = window.scrollY;
-        var windowHeight = window.innerHeight;
+      var ratingMessages = {
+        1: "I deserve that. But I'll keep trying.",
+        2: "Fair enough. I'm working on it.",
+        3: "Baby steps! I'll take it.",
+        4: "Almost there! You're too sweet.",
+        5: "You just made my whole day. Thank you."
+      };
 
-        var start = letterTop - windowHeight * 0.3;
-        var end = letterTop + letterHeight - windowHeight * 0.5;
-        var progress = (scrollY - start) / (end - start);
-
-        return Math.max(0, Math.min(100, Math.round(progress * 100)));
-      }
-
-      function onScroll() {
-        var value = getMeterValue();
-
-        if (value !== lastMeterValue) {
-          lastMeterValue = value;
-          meterFill.style.width = value + '%';
-          if (meterPercent) meterPercent.textContent = value + '%';
-          meterFill.setAttribute('aria-valuenow', value);
-
-          // Move the meter cat based on progress (capped for narrow screens)
-          var meterCat = $('.meter__cat');
-          if (meterCat) {
-            var trackWidth = meterCat.parentElement ? meterCat.parentElement.offsetWidth : 300;
-            var maxOffset = Math.min(30, trackWidth * 0.15);
-            var catOffset = ((value / 100) * maxOffset * 2) - maxOffset;
-            meterCat.style.transform = 'translateX(' + catOffset + 'px)';
-          }
-
-          if (value >= 100) {
-            if (meterPercent) meterPercent.classList.add('complete');
-            if (!confettiFired) {
-              confettiFired = true;
-              fireConfetti();
+      function setStars(rating) {
+        currentRating = rating;
+        stars.forEach(function (star, i) {
+          var path = star.querySelector('.star-path');
+          if (path) {
+            if (i < rating) {
+              path.setAttribute('fill', 'var(--honeycomb)');
+              path.setAttribute('stroke', 'var(--honeycomb)');
+              // Bouncy fill animation
+              star.style.animation = 'none';
+              star.offsetHeight;
+              star.style.animation = '';
+            } else {
+              path.setAttribute('fill', 'none');
+              path.setAttribute('stroke', 'var(--honeycomb)');
             }
-          } else {
-            if (meterPercent) meterPercent.classList.remove('complete');
           }
+        });
+
+        if (rateMessage) {
+          rateMessage.textContent = ratingMessages[rating] || '';
+          rateMessage.style.opacity = '0';
+          rateMessage.style.transform = 'translateY(8px)';
+          setTimeout(function () {
+            rateMessage.style.transition = 'opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            rateMessage.style.opacity = '1';
+            rateMessage.style.transform = 'translateY(0)';
+          }, 50);
+        }
+
+        // Fire confetti on 5 stars
+        if (rating === 5 && !confettiFired) {
+          confettiFired = true;
+          fireConfetti();
         }
       }
 
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
+      stars.forEach(function (star) {
+        star.addEventListener('click', function () {
+          var rating = parseInt(star.dataset.rating, 10);
+          setStars(rating);
+        });
 
-      var meterSection = $('#meter-section');
-      if (meterSection && 'IntersectionObserver' in window) {
-        var meterObs = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) onScroll();
+        // Hover preview
+        star.addEventListener('mouseenter', function () {
+          var rating = parseInt(star.dataset.rating, 10);
+          stars.forEach(function (s, i) {
+            var path = s.querySelector('.star-path');
+            if (path) {
+              if (i < rating) {
+                path.setAttribute('fill', 'var(--honeycomb)');
+                path.setAttribute('stroke', 'var(--honeycomb)');
+                path.style.opacity = '0.7';
+              } else {
+                path.setAttribute('fill', 'none');
+                path.setAttribute('stroke', 'var(--honeycomb)');
+                path.style.opacity = '0.4';
+              }
+            }
           });
-        }, { threshold: 0.05 });
-        meterObs.observe(meterSection);
+        });
+      });
+
+      // Reset on mouse leave
+      starsContainer.addEventListener('mouseleave', function () {
+        stars.forEach(function (s) {
+          var path = s.querySelector('.star-path');
+          if (path) path.style.opacity = '';
+        });
+        if (currentRating > 0) setStars(currentRating);
+      });
+
+      // Animate cat watching the stars
+      var rateCat = $('.rate__cat');
+      if (rateCat && !REDUCED_MOTION) {
+        stars.forEach(function (star) {
+          star.addEventListener('mouseenter', function () {
+            rateCat.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            rateCat.style.transform = 'translateX(6px)';
+          });
+          star.addEventListener('mouseleave', function () {
+            rateCat.style.transform = '';
+          });
+        });
       }
     }
 
@@ -428,7 +462,7 @@
 
 
     // =============================================
-    // 7. MAKE ME SMILE
+    // 7. SMILE / COMPLIMENTS
     // =============================================
     var complimentEl = $('#compliment');
     var smileBtn = $('#smile-btn');
