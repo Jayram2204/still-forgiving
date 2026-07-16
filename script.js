@@ -279,10 +279,12 @@
           if (meterPercent) meterPercent.textContent = value + '%';
           meterFill.setAttribute('aria-valuenow', value);
 
-          // Move the meter cat based on progress
+          // Move the meter cat based on progress (capped for narrow screens)
           var meterCat = $('.meter__cat');
           if (meterCat) {
-            var catOffset = (value / 100) * 60 - 30;
+            var trackWidth = meterCat.parentElement ? meterCat.parentElement.offsetWidth : 300;
+            var maxOffset = Math.min(30, trackWidth * 0.15);
+            var catOffset = ((value / 100) * maxOffset * 2) - maxOffset;
             meterCat.style.transform = 'translateX(' + catOffset + 'px)';
           }
 
@@ -531,11 +533,13 @@
       var heroCat = $('.doodle-cat--hero');
       if (heroCat && !REDUCED_MOTION) {
         var eyes = heroCat.querySelectorAll('.cat-eye');
+        var eyeOrigCx = [];
+        eyes.forEach(function (eye) { eyeOrigCx.push(parseFloat(eye.getAttribute('cx'))); });
         window.addEventListener('scroll', function () {
           var scrollPct = Math.min(window.scrollY / (window.innerHeight * 0.5), 1);
           var eyeOffset = (scrollPct - 0.5) * 3;
-          eyes.forEach(function (eye) {
-            eye.setAttribute('cx', parseFloat(eye.getAttribute('cx')) > 50 ? (62 + eyeOffset) : (42 + eyeOffset));
+          eyes.forEach(function (eye, i) {
+            eye.setAttribute('cx', eyeOrigCx[i] + eyeOffset);
           });
         }, { passive: true });
       }

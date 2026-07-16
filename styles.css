@@ -48,13 +48,13 @@ body {
   color: var(--espresso);
   background: var(--parchment);
   line-height: 1.65;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a { color: inherit; text-decoration: none; }
-button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+a { color: inherit; text-decoration: none; touch-action: manipulation; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; touch-action: manipulation; }
 ul, ol { list-style: none; }
 img { display: block; max-width: 100%; height: auto; }
 
@@ -1334,38 +1334,430 @@ img { display: block; max-width: 100%; height: auto; }
 
 
 /* ============================================
-   RESPONSIVE — TABLET
+   RESPONSIVE — TABLET (768px and below)
    ============================================ */
 @media (max-width: 768px) {
-  .offering__layout { grid-template-columns: 1fr; }
-  .player { position: static; }
-  .evidence__grid { grid-template-columns: 1fr; }
-  .nav__mouse { display: none; }
-  .gate__character { transform: scale(0.7); }
-  .gate__character--cat { left: -15px; bottom: 10px; }
-  .gate__character--mouse { right: -10px; top: 10px; }
+  .offering__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .player {
+    position: static;
+  }
+
+  .evidence__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nav__mouse {
+    display: none;
+  }
+
+  .gate__character {
+    transform: scale(0.6);
+  }
+
+  .gate__character--cat {
+    left: -10px;
+    bottom: 5px;
+  }
+
+  .gate__character--mouse {
+    right: -5px;
+    top: 10px;
+  }
+
+  .footer__char-scene {
+    width: 150px;
+    height: 60px;
+  }
 }
 
 
 /* ============================================
-   RESPONSIVE — MOBILE
+   RESPONSIVE — SMALL TABLET / LARGE PHONE (600px and below)
+   ============================================ */
+@media (max-width: 600px) {
+  .gate__character {
+    transform: scale(0.5);
+  }
+
+  .gate__character--cat {
+    left: 0;
+    bottom: 0;
+  }
+
+  .gate__character--mouse {
+    right: 0;
+    top: 5px;
+  }
+
+  .hero__doodle-corner {
+    display: none;
+  }
+
+  .nav__btn {
+    max-width: 100%;
+  }
+
+  .offering__letter-wrap {
+    padding: var(--space-md);
+  }
+
+  .offering__letter p {
+    font-size: 0.95rem;
+  }
+
+  .meter__cat {
+    transform: scale(0.8);
+  }
+
+  .footer__char-scene {
+    width: 130px;
+    height: 52px;
+  }
+}
+
+
+/* ============================================
+   RESPONSIVE — MOBILE (480px and below)
    ============================================ */
 @media (max-width: 480px) {
   :root {
-    --space-xl: 3rem;
-    --space-2xl: 4rem;
+    --space-xl: 2.5rem;
+    --space-2xl: 3.5rem;
+    --space-lg: 2rem;
   }
 
-  .gate__card { padding: var(--space-lg); }
-  .gate__btn { width: 100%; max-width: 260px; }
-  .hero__photo { width: 70vw; }
-  .nav__btn { padding: var(--space-sm) var(--space-md); }
-  .crimes__item { padding: var(--space-sm); }
-  .offering__letter-wrap { padding: var(--space-lg) var(--space-md); }
-  .offering__letter p { font-size: 0.95rem; }
-  .gate__character { display: none; }
-  .doodle--gate-s1, .doodle--gate-s2, .doodle--gate-q1 { display: none; }
-  .hero__cat { transform: scale(0.75); }
+  /* Gate */
+  .gate__card {
+    padding: var(--space-md);
+  }
+
+  .gate__question {
+    font-size: 1.8rem;
+  }
+
+  .gate__btn {
+    width: 100%;
+    max-width: 240px;
+    font-size: 1.1rem;
+    padding: 0.75rem 2.5rem;
+  }
+
+  .gate__character {
+    display: none;
+  }
+
+  .doodle--gate-s1,
+  .doodle--gate-s2,
+  .doodle--gate-q1 {
+    display: none;
+  }
+
+  /* Hero */
+  .hero {
+    padding: var(--space-xl) var(--space-sm);
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  .hero__photo {
+    width: min(65vw, 260px);
+  }
+
+  .hero__message-container {
+    height: auto;
+    min-height: 3rem;
+    padding: 0 var(--space-sm);
+  }
+
+  .hero__message {
+    font-size: clamp(1.3rem, 6vw, 1.8rem);
+    white-space: normal;
+    text-align: center;
+    position: relative;
+    width: 100%;
+  }
+
+  /* On mobile, only show one message at a time (JS handles visibility) */
+  .hero__message:not(.hero__message--visible) {
+    display: none;
+  }
+
+  .hero__heartbeat {
+    width: 80vw;
+  }
+
+  .hero__cat {
+    transform: scale(0.6);
+    margin-top: var(--space-sm);
+  }
+
+  .hero__doodle-corner {
+    display: none;
+  }
+
+  .doodle--hero-star1,
+  .doodle--hero-star2,
+  .doodle--hero-star3,
+  .doodle--hero-sp1 {
+    display: none;
+  }
+
+  .scroll-cue {
+    bottom: 1.5rem;
+  }
+
+  /* Nav */
+  .nav {
+    padding: var(--space-xl) var(--space-sm);
+    gap: var(--space-md);
+  }
+
+  .nav__btn {
+    padding: var(--space-sm) var(--space-md);
+    gap: 0.75rem;
+  }
+
+  .nav__icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .nav__icon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .nav__label {
+    font-size: 1.05rem;
+  }
+
+  /* Crimes */
+  .crimes {
+    padding: var(--space-xl) var(--space-sm);
+  }
+
+  .crimes__item {
+    padding: var(--space-sm);
+    font-size: 0.95rem;
+    gap: 0.65rem;
+  }
+
+  .crimes__bullet svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .doodle--crimes-sq {
+    display: none;
+  }
+
+  /* Evidence */
+  .evidence {
+    padding: var(--space-xl) var(--space-sm);
+  }
+
+  .evidence__card {
+    padding: var(--space-md);
+  }
+
+  .evidence__emoji svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .evidence__doodle-accent {
+    display: none;
+  }
+
+  /* Offering */
+  .offering {
+    padding: var(--space-xl) var(--space-sm);
+  }
+
+  .offering__layout {
+    gap: var(--space-md);
+  }
+
+  .player {
+    padding: var(--space-md);
+  }
+
+  .player__album {
+    max-width: 200px;
+    margin: 0 auto var(--space-md);
+  }
+
+  .player__btn--play {
+    width: 46px;
+    height: 46px;
+  }
+
+  .offering__letter-wrap {
+    padding: var(--space-md) var(--space-sm);
+    border-radius: var(--radius);
+  }
+
+  .offering__letter p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin-bottom: var(--space-sm);
+  }
+
+  .offering__letter p:first-child {
+    font-size: 1.15rem;
+  }
+
+  .offering__sign-off {
+    font-size: 1rem !important;
+  }
+
+  /* Meter */
+  .meter-section {
+    padding: var(--space-xl) var(--space-sm);
+  }
+
+  .meter__cat {
+    transform: scale(0.7);
+  }
+
+  .meter__track {
+    height: 18px;
+  }
+
+  .meter__label {
+    font-size: 1.1rem;
+  }
+
+  .meter__percent {
+    font-size: 1.2rem;
+  }
+
+  /* Smile */
+  .smile {
+    padding: var(--space-xl) var(--space-sm) var(--space-lg);
+  }
+
+  .smile__card {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .smile__compliment {
+    font-size: 1.1rem;
+    min-height: 2.5em;
+    margin-bottom: var(--space-md);
+  }
+
+  .smile__btn {
+    padding: 0.6rem 1.4rem;
+    font-size: 0.9rem;
+  }
+
+  .smile__doodle-left,
+  .smile__doodle-right {
+    display: none;
+  }
+
+  /* Footer */
+  .footer {
+    padding: var(--space-lg) var(--space-sm) var(--space-md);
+  }
+
+  .footer__characters {
+    transform: scale(0.85);
+  }
+
+  .footer__char-scene {
+    width: 120px;
+    height: 48px;
+  }
+
+  .footer__heartbeat {
+    width: 80vw;
+    height: 30px;
+  }
+
+  .footer__text {
+    font-size: 0.95rem;
+  }
+
+  /* Section titles */
+  .section-title {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Touch improvements */
+  .bouncy-btn {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav__btn {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .smile__btn {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+
+/* ============================================
+   RESPONSIVE — VERY SMALL PHONES (360px and below)
+   ============================================ */
+@media (max-width: 360px) {
+  :root {
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --space-lg: 1.5rem;
+  }
+
+  .gate__question {
+    font-size: 1.5rem;
+  }
+
+  .gate__btn {
+    font-size: 1rem;
+    padding: 0.65rem 2rem;
+  }
+
+  .hero__photo {
+    width: min(75vw, 220px);
+  }
+
+  .hero__message {
+    font-size: 1.15rem;
+  }
+
+  .hero__cat {
+    transform: scale(0.45);
+  }
+
+  .nav__btn {
+    padding: 0.75rem 1rem;
+  }
+
+  .nav__label {
+    font-size: 0.95rem;
+  }
+
+  .crimes__item {
+    font-size: 0.9rem;
+  }
+
+  .evidence__text {
+    font-size: 0.88rem;
+  }
+
+  .offering__letter p {
+    font-size: 0.85rem;
+  }
+
+  .smile__compliment {
+    font-size: 1rem;
+  }
 }
 
 
