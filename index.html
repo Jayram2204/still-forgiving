@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Still Forgiving?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <noscript>
+    <style>
+      .gate{display:none!important}.main-content{opacity:1!important;visibility:visible!important;pointer-events:auto!important;position:static!important}.reveal{opacity:1!important;transform:none!important}.heartbeat-line{stroke-dasharray:none;stroke-dashoffset:0;opacity:.3}
+    </style>
+  </noscript>
+</head>
+<body>
+
+  <!-- SVG FILTERS (hidden) -->
+  <svg class="svg-defs" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+    <defs>
+      <filter id="wobble">
+        <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="3" result="noise" seed="2"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="wobble-strong">
+        <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="4" result="noise" seed="5"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ===== THE GATE ===== -->
+  <div id="gate" class="gate" role="dialog" aria-label="Are you still mad?" aria-modal="true">
+    <!-- Doodle decorations around gate -->
+    <div class="doodle doodle--sparkle doodle--gate-s1" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="28" height="28"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" fill="none" stroke="var(--honeycomb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="doodle doodle--sparkle doodle--gate-s2" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" fill="none" stroke="var(--dusty-rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="doodle doodle--squiggle doodle--gate-q1" aria-hidden="true">
+      <svg viewBox="0 0 60 20" width="60" height="20"><path d="M2 10 Q10 2 18 10 Q26 18 34 10 Q42 2 50 10 Q58 18 60 10" fill="none" stroke="var(--mauve)" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
+
+    <div class="gate__card wobbly-border">
+      <!-- Cat peeking from left -->
+      <div class="gate__character gate__character--cat" aria-hidden="true">
+        <svg viewBox="0 0 80 100" width="80" height="100" class="doodle-cat">
+          <g class="cat-body" stroke="var(--burgundy)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Ears -->
+            <path d="M25 35 L20 10 L38 28" class="cat-ear-l"/>
+            <path d="M55 35 L60 10 L42 28" class="cat-ear-r"/>
+            <!-- Head -->
+            <ellipse cx="40" cy="42" rx="22" ry="20"/>
+            <!-- Eyes -->
+            <ellipse cx="32" cy="40" rx="4" ry="5" fill="var(--burgundy)" class="cat-eye"/>
+            <ellipse cx="48" cy="40" rx="4" ry="5" fill="var(--burgundy)" class="cat-eye"/>
+            <circle cx="33" cy="38" r="1.5" fill="var(--white)"/>
+            <circle cx="49" cy="38" r="1.5" fill="var(--white)"/>
+            <!-- Nose -->
+            <path d="M38 47 L40 50 L42 47" fill="var(--dusty-rose)"/>
+            <!-- Mouth -->
+            <path d="M40 50 Q36 55 33 52"/>
+            <path d="M40 50 Q44 55 47 52"/>
+            <!-- Whiskers -->
+            <line x1="14" y1="44" x2="28" y2="46" class="cat-whisker"/>
+            <line x1="12" y1="50" x2="27" y2="50" class="cat-whisker"/>
+            <line x1="52" y1="46" x2="66" y2="44" class="cat-whisker"/>
+            <line x1="53" y1="50" x2="68" y2="50" class="cat-whisker"/>
+            <!-- Body -->
+            <ellipse cx="40" cy="72" rx="18" ry="16"/>
+            <!-- Tail -->
+            <path d="M58 78 Q75 70 70 55 Q68 45 72 40" class="cat-tail"/>
+            <!-- Front paws -->
+            <ellipse cx="30" cy="86" rx="6" ry="4"/>
+            <ellipse cx="50" cy="86" rx="6" ry="4"/>
+          </g>
+        </svg>
+      </div>
+
+      <svg class="gate__heart" viewBox="0 0 32 29.6" aria-hidden="true">
+        <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2 c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+      </svg>
+      <h1 class="gate__question">Are you still mad?</h1>
+      <div class="gate__buttons">
+        <button class="gate__btn gate__btn--yes bouncy-btn" id="gate-yes" type="button">Yes</button>
+        <button class="gate__btn gate__btn--no bouncy-btn" id="gate-no" type="button">No</button>
+      </div>
+      <p class="gate__hint" aria-live="polite"></p>
+
+      <!-- Mouse peeking from right -->
+      <div class="gate__character gate__character--mouse" aria-hidden="true">
+        <svg viewBox="0 0 70 90" width="70" height="90" class="doodle-mouse">
+          <g stroke="var(--espresso)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Ears (big round) -->
+            <circle cx="22" cy="18" r="14" class="mouse-ear"/>
+            <circle cx="48" cy="18" r="14" class="mouse-ear"/>
+            <circle cx="22" cy="18" r="8" fill="var(--dusty-rose)" opacity="0.3"/>
+            <circle cx="48" cy="18" r="8" fill="var(--dusty-rose)" opacity="0.3"/>
+            <!-- Head -->
+            <ellipse cx="35" cy="38" rx="18" ry="16"/>
+            <!-- Eyes -->
+            <circle cx="29" cy="36" r="3.5" fill="var(--espresso)"/>
+            <circle cx="41" cy="36" r="3.5" fill="var(--espresso)"/>
+            <circle cx="30" cy="34.5" r="1.2" fill="var(--white)"/>
+            <circle cx="42" cy="34.5" r="1.2" fill="var(--white)"/>
+            <!-- Nose -->
+            <circle cx="35" cy="42" r="2.5" fill="var(--dusty-rose)"/>
+            <!-- Whiskers -->
+            <line x1="10" y1="38" x2="22" y2="40" class="mouse-whisker"/>
+            <line x1="8" y1="44" x2="21" y2="43" class="mouse-whisker"/>
+            <line x1="48" y1="40" x2="60" y2="38" class="mouse-whisker"/>
+            <line x1="49" y1="43" x2="62" y2="44" class="mouse-whisker"/>
+            <!-- Body -->
+            <ellipse cx="35" cy="62" rx="14" ry="14"/>
+            <!-- Tail -->
+            <path d="M49 70 Q65 65 68 50 Q70 40 74 35" class="mouse-tail"/>
+            <!-- Paws -->
+            <ellipse cx="26" cy="74" rx="5" ry="3.5"/>
+            <ellipse cx="44" cy="74" rx="5" ry="3.5"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main id="main-content" class="main-content" aria-hidden="true">
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <!-- Floating doodle decorations -->
+      <div class="doodle doodle--star doodle--hero-star1" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" fill="none" stroke="var(--honeycomb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="doodle doodle--star doodle--hero-star2" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" fill="none" stroke="var(--dusty-rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="doodle doodle--star doodle--hero-star3" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" fill="none" stroke="var(--mauve)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="doodle doodle--sparkle doodle--hero-sp1" aria-hidden="true">
+        <svg viewBox="0 0 20 20" width="14" height="14"><path d="M10 2v16M2 10h16" stroke="var(--honeycomb)" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+
+      <div class="hero__frame wobbly-border">
+        <!-- Doodle corners on photo -->
+        <svg class="hero__doodle-corner hero__doodle-corner--tl" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><path d="M5 35 L5 5 L35 5" fill="none" stroke="var(--honeycomb)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="hero__doodle-corner hero__doodle-corner--br" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><path d="M35 5 L35 35 L5 35" fill="none" stroke="var(--honeycomb)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="hero__photo" role="img" aria-label="Photo of us">
+          <span class="hero__photo-placeholder">Our Photo</span>
+        </div>
+      </div>
+
+      <div class="hero__message-container">
+        <p class="hero__message hero__message--visible" id="msg-1">My Favorite Human</p>
+        <p class="hero__message" id="msg-2">I Messed Up, I Know</p>
+      </div>
+
+      <svg class="hero__heartbeat" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true">
+        <polyline class="heartbeat-line" points="0,20 100,20 130,20 145,5 160,35 175,15 190,25 205,20 300,20 330,20 345,5 360,35 375,15 390,25 405,20 500,20 530,20 545,5 560,35 575,15 590,25 600,20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+
+      <!-- Cat sitting at bottom of hero -->
+      <div class="hero__cat doodle-float" aria-hidden="true">
+        <svg viewBox="0 0 120 100" width="100" height="84" class="doodle-cat doodle-cat--hero">
+          <g stroke="var(--burgundy)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M30 40 L22 15 L44 34" class="cat-ear-l"/>
+            <path d="M75 40 L83 15 L61 34" class="cat-ear-r"/>
+            <ellipse cx="52" cy="48" rx="28" ry="24"/>
+            <ellipse cx="42" cy="46" rx="4.5" ry="5.5" fill="var(--burgundy)" class="cat-eye"/>
+            <ellipse cx="62" cy="46" rx="4.5" ry="5.5" fill="var(--burgundy)" class="cat-eye"/>
+            <circle cx="43.5" cy="44" r="1.5" fill="var(--white)"/>
+            <circle cx="63.5" cy="44" r="1.5" fill="var(--white)"/>
+            <path d="M50 54 L52 57 L54 54" fill="var(--dusty-rose)"/>
+            <path d="M52 57 Q47 62 43 59"/>
+            <path d="M52 57 Q57 62 61 59"/>
+            <line x1="18" y1="50" x2="35" y2="52" class="cat-whisker"/>
+            <line x1="16" y1="56" x2="34" y2="56" class="cat-whisker"/>
+            <line x1="69" y1="52" x2="86" y2="50" class="cat-whisker"/>
+            <line x1="70" y1="56" x2="88" y2="56" class="cat-whisker"/>
+            <ellipse cx="52" cy="78" rx="22" ry="18"/>
+            <path d="M74 84 Q95 78 98 62 Q100 50 105 44" class="cat-tail"/>
+            <ellipse cx="38" cy="94" rx="7" ry="5"/>
+            <ellipse cx="66" cy="94" rx="7" ry="5"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <span>scroll</span>
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 5v14M5 12l7 7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </section>
+
+    <!-- THREE-WAY NAV -->
+    <nav class="nav" id="nav" aria-label="Choose a section">
+      <!-- Mouse peeking from side -->
+      <div class="nav__mouse doodle-float" aria-hidden="true">
+        <svg viewBox="0 0 60 50" width="55" height="46" class="doodle-mouse doodle-mouse--nav">
+          <g stroke="var(--espresso)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="16" cy="12" r="11" class="mouse-ear"/>
+            <circle cx="40" cy="12" r="11" class="mouse-ear"/>
+            <circle cx="16" cy="12" r="6" fill="var(--dusty-rose)" opacity="0.25"/>
+            <circle cx="40" cy="12" r="6" fill="var(--dusty-rose)" opacity="0.25"/>
+            <ellipse cx="28" cy="28" rx="16" ry="14"/>
+            <circle cx="22" cy="26" r="3" fill="var(--espresso)"/>
+            <circle cx="34" cy="26" r="3" fill="var(--espresso)"/>
+            <circle cx="23" cy="24.5" r="1" fill="var(--white)"/>
+            <circle cx="35" cy="24.5" r="1" fill="var(--white)"/>
+            <circle cx="28" cy="31" r="2" fill="var(--dusty-rose)"/>
+            <line x1="6" y1="27" x2="17" y2="29" class="mouse-whisker"/>
+            <line x1="39" y1="29" x2="50" y2="27" class="mouse-whisker"/>
+          </g>
+        </svg>
+      </div>
+
+      <a href="#crimes" class="nav__btn reveal bouncy-btn" data-delay="0">
+        <span class="nav__icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="32" height="32" stroke="var(--dusty-rose)" stroke-width="2" fill="none" stroke-linecap="round"><line x1="8" y1="8" x2="24" y2="24"/><line x1="24" y1="8" x2="8" y2="24"/></svg>
+        </span>
+        <span class="nav__label">My Crimes</span>
+      </a>
+      <a href="#evidence" class="nav__btn reveal bouncy-btn" data-delay="100">
+        <span class="nav__icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="32" height="32" stroke="var(--honeycomb)" stroke-width="2" fill="none" stroke-linecap="round"><circle cx="14" cy="14" r="9"/><line x1="21" y1="21" x2="28" y2="28"/></svg>
+        </span>
+        <span class="nav__label">The Evidence</span>
+      </a>
+      <a href="#offering" class="nav__btn reveal bouncy-btn" data-delay="200">
+        <span class="nav__icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="32" height="32" stroke="var(--dusty-rose)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M16 28s-10-6.5-10-14a6 6 0 0 1 10-4.5A6 6 0 0 1 26 14c0 7.5-10 14-10 14z"/></svg>
+        </span>
+        <span class="nav__label">The Peace Offering</span>
+      </a>
+      <svg class="nav__heartbeat-divider" viewBox="0 0 400 30" preserveAspectRatio="none" aria-hidden="true">
+        <polyline class="heartbeat-line heartbeat-line--nav" points="0,15 80,15 100,15 110,3 120,27 130,10 140,20 150,15 200,15 250,15 260,3 270,27 280,10 290,20 300,15 400,15" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </nav>
+
+    <!-- MY CRIMES -->
+    <section class="crimes" id="crimes">
+      <h2 class="section-title reveal">My Crimes</h2>
+      <div class="doodle doodle--squiggle doodle--crimes-sq" aria-hidden="true">
+        <svg viewBox="0 0 80 16" width="80" height="16"><path d="M2 8 Q12 2 22 8 Q32 14 42 8 Q52 2 62 8 Q72 14 78 8" fill="none" stroke="var(--dusty-rose)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/></svg>
+      </div>
+      <ul class="crimes__list">
+        <li class="crimes__item reveal" data-delay="0">
+          <span class="crimes__bullet" aria-hidden="true">
+            <svg viewBox="0 0 20 20" width="20" height="20" stroke="var(--dusty-rose)" stroke-width="2" fill="none" stroke-linecap="round"><line x1="5" y1="5" x2="15" y2="15"/><line x1="15" y1="5" x2="5" y2="15"/></svg>
+          </span>
+          <span>I forgot that the little things matter more than the big ones.</span>
+        </li>
+        <li class="crimes__item reveal" data-delay="100">
+          <span class="crimes__bullet" aria-hidden="true">
+            <svg viewBox="0 0 20 20" width="20" height="20" stroke="var(--dusty-rose)" stroke-width="2" fill="none" stroke-linecap="round"><line x1="5" y1="5" x2="15" y2="15"/><line x1="15" y1="5" x2="5" y2="15"/></svg>
+          </span>
+          <span>I let my ego write checks my heart couldn't cash.</span>
+        </li>
+        <li class="crimes__item reveal" data-delay="200">
+          <span class="crimes__bullet" aria-hidden="true">
+            <svg viewBox="0 0 20 20" width="20" height="20" stroke="var(--dusty-rose)" stroke-width="2" fill="none" stroke-linecap="round"><line x1="5" y1="5" x2="15" y2="15"/><line x1="15" y1="5" x2="5" y2="15"/></svg>
+          </span>
+          <span>I assumed you knew how I felt instead of actually saying it.</span>
+        </li>
+        <li class="crimes__item reveal" data-delay="300">
+          <span class="crimes__bullet" aria-hidden="true">
+            <svg viewBox="0 0 20 20" width="20" height="20" stroke="var(--dusty-rose)" stroke-width="2" fill="none" stroke-linecap="round"><line x1="5" y1="5" x2="15" y2="15"/><line x1="15" y1="5" x2="5" y2="15"/></svg>
+          </span>
+          <span>I chose "fine" over "here's what's really going on."</span>
+        </li>
+        <li class="crimes__item reveal" data-delay="400">
+          <span class="crimes__bullet" aria-hidden="true">
+            <svg viewBox="0 0 20 20" width="20" height="20" stroke="var(--dusty-rose)" stroke-width="2" fill="none" stroke-linecap="round"><line x1="5" y1="5" x2="15" y2="15"/><line x1="15" y1="5" x2="5" y2="15"/></svg>
+          </span>
+          <span>I made you feel like an option when you've always been the plan.</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- THE EVIDENCE -->
+    <section class="evidence" id="evidence">
+      <h2 class="section-title reveal">The Evidence</h2>
+      <div class="evidence__grid">
+        <div class="evidence__card reveal wobbly-border" data-delay="0">
+          <div class="evidence__emoji" aria-hidden="true">
+            <svg viewBox="0 0 50 50" width="50" height="50"><circle cx="25" cy="25" r="20" fill="none" stroke="var(--dusty-rose)" stroke-width="2"/><path d="M18 20 Q25 30 32 20" fill="none" stroke="var(--dusty-rose)" stroke-width="2" stroke-linecap="round"/><circle cx="18" cy="17" r="2.5" fill="var(--dusty-rose)"/><circle cx="32" cy="17" r="2.5" fill="var(--dusty-rose)"/><line x1="18" y1="33" x2="32" y2="33" stroke="var(--dusty-rose)" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="evidence__card-title">Exhibit A</h3>
+          <p class="evidence__text">The face you made when I said "it's not a big deal." It was a big deal. I know that now.</p>
+          <!-- Doodle accent -->
+          <svg class="evidence__doodle-accent" viewBox="0 0 40 40" width="30" height="30" aria-hidden="true"><path d="M20 5l3 8h8l-6.5 5 2.5 8L20 21l-7 5 2.5-8L9 13h8z" fill="none" stroke="var(--honeycomb)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/></svg>
+        </div>
+        <div class="evidence__card reveal wobbly-border" data-delay="150">
+          <div class="evidence__emoji" aria-hidden="true">
+            <svg viewBox="0 0 50 50" width="50" height="50"><circle cx="25" cy="25" r="20" fill="none" stroke="var(--honeycomb)" stroke-width="2"/><path d="M17 22 L25 30 L35 18" fill="none" stroke="var(--honeycomb)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17" cy="17" r="2.5" fill="var(--honeycomb)"/><circle cx="33" cy="17" r="2.5" fill="var(--honeycomb)"/></svg>
+          </div>
+          <h3 class="evidence__card-title">Exhibit B</h3>
+          <p class="evidence__text">The text I left on read for three hours while I figured out how to say "I'm sorry" without making it about me.</p>
+          <svg class="evidence__doodle-accent" viewBox="0 0 30 30" width="24" height="24" aria-hidden="true"><circle cx="15" cy="15" r="12" fill="none" stroke="var(--mauve)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.4"/></svg>
+        </div>
+        <div class="evidence__card reveal wobbly-border" data-delay="300">
+          <div class="evidence__emoji" aria-hidden="true">
+            <svg viewBox="0 0 50 50" width="50" height="50"><circle cx="25" cy="25" r="20" fill="none" stroke="var(--burgundy)" stroke-width="2"/><path d="M20 18 Q25 14 30 18" fill="none" stroke="var(--burgundy)" stroke-width="2" stroke-linecap="round"/><path d="M18 30 Q25 36 32 30" fill="none" stroke="var(--burgundy)" stroke-width="2" stroke-linecap="round"/><circle cx="19" cy="22" r="2.5" fill="var(--burgundy)"/><circle cx="31" cy="22" r="2.5" fill="var(--burgundy)"/></svg>
+          </div>
+          <h3 class="evidence__card-title">Exhibit C</h3>
+          <p class="evidence__text">Every time you said "are you okay?" and I said "yeah" when the answer was clearly not yeah.</p>
+          <svg class="evidence__doodle-accent" viewBox="0 0 36 36" width="28" height="28" aria-hidden="true"><path d="M18 4 Q22 14 18 18 Q14 14 18 4" fill="none" stroke="var(--dusty-rose)" stroke-width="1.2" opacity="0.4"/><path d="M18 22 Q22 32 18 36 Q14 32 18 22" fill="none" stroke="var(--dusty-rose)" stroke-width="1.2" opacity="0.4"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE PEACE OFFERING -->
+    <section class="offering" id="offering">
+      <h2 class="section-title reveal">The Peace Offering</h2>
+      <div class="offering__layout">
+        <div class="offering__player reveal">
+          <div class="player wobbly-border">
+            <div class="player__album">
+              <div class="player__vinyl" aria-hidden="true"></div>
+              <!-- Floating music notes -->
+              <div class="player__notes" aria-hidden="true">
+                <span class="music-note music-note--1">&#9835;</span>
+                <span class="music-note music-note--2">&#9834;</span>
+                <span class="music-note music-note--3">&#9833;</span>
+              </div>
+            </div>
+            <div class="player__info">
+              <p class="player__track">Our Song</p>
+              <p class="player__artist">The Soundtrack of Us</p>
+            </div>
+            <div class="player__controls">
+              <button class="player__btn player__btn--prev" aria-label="Previous track" type="button">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="19 20 9 12 19 4"/><line x1="5" y1="4" x2="5" y2="20"/></svg>
+              </button>
+              <button class="player__btn player__btn--play bouncy-btn" id="play-btn" aria-label="Play" type="button">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="6 3 20 12 6 21"/></svg>
+              </button>
+              <button class="player__btn player__btn--next" aria-label="Next track" type="button">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 4 15 12 5 20"/><line x1="19" y1="4" x2="19" y2="20"/></svg>
+              </button>
+            </div>
+            <div class="player__progress">
+              <div class="player__bar">
+                <div class="player__fill" id="player-fill"></div>
+              </div>
+              <div class="player__times">
+                <span id="player-current">0:00</span>
+                <span id="player-duration">3:42</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="offering__letter-wrap reveal" data-delay="150">
+          <div class="offering__letter wobbly-border" id="letter">
+            <p>Hey,</p>
+            <p>I know "sorry" is just a word, and honestly, you've heard it from me enough times that it's probably lost some of its weight. So I'm not going to lead with it this time.</p>
+            <p>I want to lead with the truth: I was wrong. Not "wrong but also you were wrong" wrong. Just wrong. Full stop.</p>
+            <p>You deserved better than what I gave you in that moment. You always give me the best of you, and I gave you the lazy version. The distracted version. The version that assumes you'll always be there no matter what.</p>
+            <p>But here's what I've been thinking about since then: you don't just "always be there." You choose to be. Every single day, you choose us. And I forgot to make that feel easy for you.</p>
+            <p>I'm not writing this because I want you to forgive me right now. I'm writing this because you deserve to know that I see it. I see what you do. I see who you are. And I see who I become when I'm with you &mdash; someone better, if I'd just get out of my own way.</p>
+            <p>Take your time. Be mad. I'll be here when you're ready.</p>
+            <p class="offering__sign-off">Always yours,<br><em>Me</em></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORGIVENESS METER -->
+    <section class="meter-section" id="meter-section" aria-label="Forgiveness meter">
+      <div class="meter">
+        <div class="meter__label">Forgiveness Meter</div>
+        <!-- Cat watching the meter -->
+        <div class="meter__cat" aria-hidden="true">
+          <svg viewBox="0 0 50 45" width="45" height="40" class="doodle-cat doodle-cat--meter">
+            <g stroke="var(--burgundy)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 18 L8 4 L20 15" class="cat-ear-l"/>
+              <path d="M33 18 L37 4 L25 15" class="cat-ear-r"/>
+              <ellipse cx="22" cy="22" rx="14" ry="12"/>
+              <ellipse cx="17" cy="21" rx="3" ry="3.5" fill="var(--burgundy)" class="cat-eye"/>
+              <ellipse cx="27" cy="21" rx="3" ry="3.5" fill="var(--burgundy)" class="cat-eye"/>
+              <circle cx="18" cy="19.5" r="1" fill="var(--white)"/>
+              <circle cx="28" cy="19.5" r="1" fill="var(--white)"/>
+              <circle cx="22" cy="25" r="1.5" fill="var(--dusty-rose)"/>
+              <line x1="6" y1="22" x2="14" y2="23" class="cat-whisker"/>
+              <line x1="30" y1="23" x2="38" y2="22" class="cat-whisker"/>
+              <path d="M18 28 Q14 32 11 30"/>
+              <path d="M26 28 Q30 32 33 30"/>
+            </g>
+          </svg>
+        </div>
+        <div class="meter__track">
+          <div class="meter__fill" id="meter-fill" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <svg class="meter__heartbeat-fill" viewBox="0 0 800 40" preserveAspectRatio="none" aria-hidden="true">
+              <polyline class="heartbeat-line heartbeat-line--meter" points="0,20 120,20 145,20 160,5 175,35 190,15 205,25 220,20 340,20 365,20 380,5 395,35 410,15 425,25 440,20 560,20 585,20 600,5 615,35 630,15 645,25 660,20 800,20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="meter__percent" id="meter-percent">0%</div>
+      </div>
+    </section>
+
+    <!-- MAKE ME SMILE -->
+    <section class="smile" id="smile">
+      <h2 class="section-title reveal">Make Me Smile</h2>
+      <div class="smile__card reveal wobbly-border">
+        <div class="smile__doodle-left" aria-hidden="true">
+          <svg viewBox="0 0 30 30" width="26" height="26"><path d="M15 3l3 8h8l-6.5 5 2.5 8L15 24l-7 5 2.5-8L4 11h8z" fill="none" stroke="var(--honeycomb)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/></svg>
+        </div>
+        <p class="smile__compliment" id="compliment" aria-live="polite">You have the kind of laugh that makes strangers smile.</p>
+        <button class="smile__btn bouncy-btn" id="smile-btn" type="button">
+          <span>Another one</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="smile__doodle-right" aria-hidden="true">
+          <svg viewBox="0 0 30 30" width="26" height="26"><circle cx="15" cy="15" r="12" fill="none" stroke="var(--dusty-rose)" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.4"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL -->
+    <footer class="footer">
+      <!-- Both characters together -->
+      <div class="footer__characters" aria-hidden="true">
+        <svg viewBox="0 0 200 80" width="180" height="72" class="footer__char-scene">
+          <!-- Cat -->
+          <g transform="translate(20,5)" stroke="var(--burgundy)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="footer-cat">
+            <path d="M15 30 L10 10 L24 26"/>
+            <path d="M42 30 L47 10 L33 26"/>
+            <ellipse cx="28" cy="34" rx="18" ry="14"/>
+            <ellipse cx="22" cy="32" rx="3" ry="3.5" fill="var(--burgundy)"/>
+            <ellipse cx="34" cy="32" rx="3" ry="3.5" fill="var(--burgundy)"/>
+            <circle cx="23" cy="30.5" r="1" fill="var(--white)"/>
+            <circle cx="35" cy="30.5" r="1" fill="var(--white)"/>
+            <circle cx="28" cy="37" r="1.5" fill="var(--dusty-rose)"/>
+            <ellipse cx="28" cy="52" rx="14" ry="10"/>
+            <ellipse cx="20" cy="60" rx="5" ry="3.5"/>
+            <ellipse cx="36" cy="60" rx="5" ry="3.5"/>
+          </g>
+          <!-- Heart between them -->
+          <g transform="translate(82,18)">
+            <path d="M18 28s-12-8-12-16a5 5 0 0 1 9-3.5A5 5 0 0 1 24 12c0 8-12 16-12 16z" fill="var(--dusty-rose)" opacity="0.6" class="footer-heart"/>
+          </g>
+          <!-- Mouse -->
+          <g transform="translate(118,12)" stroke="var(--espresso)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="footer-mouse">
+            <circle cx="12" cy="10" r="9"/>
+            <circle cx="30" cy="10" r="9"/>
+            <circle cx="12" cy="10" r="5" fill="var(--dusty-rose)" opacity="0.2"/>
+            <circle cx="30" cy="10" r="5" fill="var(--dusty-rose)" opacity="0.2"/>
+            <ellipse cx="21" cy="24" rx="12" ry="10"/>
+            <circle cx="17" cy="22" r="2.5" fill="var(--espresso)"/>
+            <circle cx="25" cy="22" r="2.5" fill="var(--espresso)"/>
+            <circle cx="18" cy="21" r=".8" fill="var(--white)"/>
+            <circle cx="26" cy="21" r=".8" fill="var(--white)"/>
+            <circle cx="21" cy="26" r="1.8" fill="var(--dusty-rose)"/>
+            <ellipse cx="16" cy="33" rx="4" ry="3"/>
+            <ellipse cx="26" cy="33" rx="4" ry="3"/>
+          </g>
+        </svg>
+      </div>
+      <svg class="footer__heartbeat" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true">
+        <polyline class="heartbeat-line heartbeat-line--footer" points="0,20 100,20 130,20 145,5 160,35 175,15 190,25 205,20 300,20 330,20 345,5 360,35 375,15 390,25 405,20 500,20 530,20 545,5 560,35 575,15 590,25 600,20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="footer__text">Waiting as long as it takes.</p>
+    </footer>
+  </main>
+
+  <!-- CONFETTI CANVAS -->
+  <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
