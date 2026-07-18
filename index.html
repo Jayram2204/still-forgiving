@@ -4,6 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Still Forgiving?</title>
+  <meta name="description" content="A heartfelt interactive apology — because some things are worth saying properly.">
+  <meta name="theme-color" content="#F5EDE6">
+  <meta name="color-scheme" content="light">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Still Forgiving?">
+  <meta property="og:description" content="A heartfelt interactive apology — because some things are worth saying properly.">
+  <meta property="og:site_name" content="Still Forgiving?">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Still Forgiving?">
+  <meta name="twitter:description" content="A heartfelt interactive apology — because some things are worth saying properly.">
+
+  <!-- Favicon (inline SVG heart) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z' fill='%23C4727F'/></svg>" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&display=swap" rel="stylesheet">
@@ -27,6 +44,57 @@
         <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="4" result="noise" seed="5"/>
         <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
       </filter>
+
+      <!-- Reusable icon symbols -->
+      <symbol id="icon-star5" viewBox="0 0 24 24">
+        <path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="icon-heart" viewBox="0 0 24 24">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="icon-heart-filled" viewBox="0 0 24 29.6">
+        <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2 c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+      </symbol>
+      <symbol id="icon-sparkle" viewBox="0 0 20 20">
+        <path d="M10 2v16M2 10h16" fill="none" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="icon-squiggle" viewBox="0 0 60 20">
+        <path d="M2 10 Q10 2 18 10 Q26 18 34 10 Q42 2 50 10 Q58 18 60 10" fill="none" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="icon-x-circle" viewBox="0 0 20 20">
+        <path d="M13.7 3.3a1 1 0 0 0-1.4 0L10 5.6 7.7 3.3a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 0 0 1.4 1.4L10 8.4l2.3 2.3a1 1 0 0 0 1.4-1.4L11.4 7l2.3-2.3a1 1 0 0 0 0-1.4z"/>
+      </symbol>
+      <symbol id="icon-star-rating" viewBox="0 0 24 24">
+        <path d="M12 2l2.4 7.4h7.8l-6.3 4.6 2.4 7.4L12 16.8l-6.3 4.6 2.4-7.4L1.8 9.4h7.8z" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="star-path"/>
+      </symbol>
+      <symbol id="icon-note-small" viewBox="0 0 30 40">
+        <path d="M10 35 Q6 35 6 31 Q6 27 10 27 Q14 27 14 31 L14 8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 8 Q14 4 20 3 Q24 2 24 6 Q24 10 18 10 L14 12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="icon-star-doodle-small" viewBox="0 0 30 30">
+        <path d="M15 3l3 8h8l-6.5 5 2.5 8L15 24l-7 5 2.5-8L4 11h8z" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="icon-dashed-circle" viewBox="0 0 30 30">
+        <circle cx="15" cy="15" r="12" fill="none" stroke-width="1.2" stroke-dasharray="3 4"/>
+      </symbol>
+      <symbol id="icon-dashed-circle-small" viewBox="0 0 30 30">
+        <circle cx="15" cy="15" r="12" fill="none" stroke-width="1.2" stroke-dasharray="3 3"/>
+      </symbol>
+      <symbol id="icon-arrow-down" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12l7 7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="icon-chevron-left" viewBox="0 0 24 24">
+        <polygon points="19 20 9 12 19 4"/><line x1="5" y1="4" x2="5" y2="20"/>
+      </symbol>
+      <symbol id="icon-chevron-right" viewBox="0 0 24 24">
+        <polygon points="5 4 15 12 5 20"/><line x1="19" y1="4" x2="19" y2="20"/>
+      </symbol>
+      <symbol id="icon-play" viewBox="0 0 24 24">
+        <polygon points="6 3 20 12 6 21"/>
+      </symbol>
+      <symbol id="icon-leaf-drop" viewBox="0 0 20 20">
+        <path d="M17 3.6a4.5 4.5 0 0 0-6.4 0L10 4.2l-.6-.6a4.5 4.5 0 0 0-6.4 6.4l.6.6L10 17l6.4-6.4.6-.6a4.5 4.5 0 0 0 0-6.4z" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
     </defs>
   </svg>
 
@@ -34,21 +102,20 @@
   <div id="gate" class="gate" role="dialog" aria-label="Are you still mad?" aria-modal="true">
     <!-- Doodle decorations around gate — visible on all screens -->
     <div class="doodle doodle--sparkle doodle--gate-s1" aria-hidden="true">
-      <svg viewBox="0 0 24 24" width="28" height="28"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" fill="none" stroke="var(--honeycomb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 24 24" width="28" height="28"><use href="#icon-star5" stroke="var(--honeycomb)" stroke-width="1.5"/></svg>
     </div>
     <div class="doodle doodle--sparkle doodle--gate-s2" aria-hidden="true">
-      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" fill="none" stroke="var(--dusty-rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 24 24" width="20" height="20"><use href="#icon-star5" stroke="var(--dusty-rose)" stroke-width="1.5"/></svg>
     </div>
     <div class="doodle doodle--squiggle doodle--gate-q1" aria-hidden="true">
-      <svg viewBox="0 0 60 20" width="60" height="20"><path d="M2 10 Q10 2 18 10 Q26 18 34 10 Q42 2 50 10 Q58 18 60 10" fill="none" stroke="var(--mauve)" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <svg viewBox="0 0 60 20" width="60" height="20"><use href="#icon-squiggle" stroke="var(--mauve)" stroke-width="1.5"/></svg>
     </div>
     <!-- Extra heart doodle for gate -->
     <div class="doodle doodle--heart doodle--gate-h1" aria-hidden="true">
-      <svg viewBox="0 0 24 24" width="22" height="22"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="none" stroke="var(--dusty-rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 24 24" width="22" height="22"><use href="#icon-heart" stroke="var(--dusty-rose)" stroke-width="1.5"/></svg>
     </div>
-    <!-- Extra sparkle for gate -->
     <div class="doodle doodle--sparkle doodle--gate-s3" aria-hidden="true">
-      <svg viewBox="0 0 20 20" width="16" height="16"><path d="M10 2v16M2 10h16" stroke="var(--honeycomb)" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <svg viewBox="0 0 20 20" width="16" height="16"><use href="#icon-sparkle" stroke="var(--honeycomb)" stroke-width="1.5"/></svg>
     </div>
 
     <div class="gate__card wobbly-border">
@@ -79,7 +146,7 @@
       </div>
 
       <svg class="gate__heart" viewBox="0 0 32 29.6" aria-hidden="true">
-        <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2 c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+        <use href="#icon-heart-filled"/>
       </svg>
       <h1 class="gate__question">Are you still mad?</h1>
       <div class="gate__buttons">
@@ -123,23 +190,22 @@
     <section class="hero" id="hero">
       <!-- Floating doodle decorations -->
       <div class="doodle doodle--star doodle--hero-star1" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" fill="none" stroke="var(--honeycomb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" width="22" height="22"><use href="#icon-star5" stroke="var(--honeycomb)" stroke-width="1.5"/></svg>
       </div>
       <div class="doodle doodle--star doodle--hero-star2" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" fill="none" stroke="var(--dusty-rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16"><use href="#icon-star5" stroke="var(--dusty-rose)" stroke-width="1.5"/></svg>
       </div>
       <div class="doodle doodle--star doodle--hero-star3" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" fill="none" stroke="var(--mauve)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" width="18" height="18"><use href="#icon-star5" stroke="var(--mauve)" stroke-width="1.5"/></svg>
       </div>
       <div class="doodle doodle--sparkle doodle--hero-sp1" aria-hidden="true">
-        <svg viewBox="0 0 20 20" width="14" height="14"><path d="M10 2v16M2 10h16" stroke="var(--honeycomb)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 20 20" width="14" height="14"><use href="#icon-sparkle" stroke="var(--honeycomb)" stroke-width="1.5"/></svg>
       </div>
-      <!-- Extra heart doodle for hero -->
       <div class="doodle doodle--heart doodle--hero-h1" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="none" stroke="var(--dusty-rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" width="18" height="18"><use href="#icon-heart" stroke="var(--dusty-rose)" stroke-width="1.5"/></svg>
       </div>
       <div class="doodle doodle--sparkle doodle--hero-sp2" aria-hidden="true">
-        <svg viewBox="0 0 20 20" width="12" height="12"><path d="M10 2v16M2 10h16" stroke="var(--dusty-rose)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 20 20" width="12" height="12"><use href="#icon-sparkle" stroke="var(--dusty-rose)" stroke-width="1.5"/></svg>
       </div>
 
       <div class="hero__frame wobbly-border">
@@ -252,36 +318,36 @@
         <svg viewBox="0 0 80 16" width="80" height="16"><path d="M2 8 Q12 2 22 8 Q32 14 42 8 Q52 2 62 8 Q72 14 78 8" fill="none" stroke="var(--dusty-rose)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/></svg>
       </div>
       <div class="doodle doodle--star doodle--crimes-star" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" fill="none" stroke="var(--honeycomb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16"><use href="#icon-star5" stroke="var(--honeycomb)" stroke-width="1.5"/></svg>
       </div>
       <ul class="crimes__list">
         <li class="crimes__item reveal" data-delay="0">
           <span class="crimes__bullet" aria-hidden="true">
-            <svg viewBox="0 0 20 20" width="20" height="20"><path d="M13.7 3.3a1 1 0 0 0-1.4 0L10 5.6 7.7 3.3a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 0 0 1.4 1.4L10 8.4l2.3 2.3a1 1 0 0 0 1.4-1.4L11.4 7l2.3-2.3a1 1 0 0 0 0-1.4z" fill="var(--dusty-rose)" opacity="0.7"/></svg>
+            <svg viewBox="0 0 20 20" width="20" height="20"><use href="#icon-x-circle" fill="var(--dusty-rose)" opacity="0.7"/></svg>
           </span>
           <span>I forgot that the little things matter more than the big ones.</span>
         </li>
         <li class="crimes__item reveal" data-delay="100">
           <span class="crimes__bullet" aria-hidden="true">
-            <svg viewBox="0 0 20 20" width="20" height="20"><path d="M13.7 3.3a1 1 0 0 0-1.4 0L10 5.6 7.7 3.3a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 0 0 1.4 1.4L10 8.4l2.3 2.3a1 1 0 0 0 1.4-1.4L11.4 7l2.3-2.3a1 1 0 0 0 0-1.4z" fill="var(--dusty-rose)" opacity="0.7"/></svg>
+            <svg viewBox="0 0 20 20" width="20" height="20"><use href="#icon-x-circle" fill="var(--dusty-rose)" opacity="0.7"/></svg>
           </span>
           <span>I let my ego write checks my heart couldn't cash.</span>
         </li>
         <li class="crimes__item reveal" data-delay="200">
           <span class="crimes__bullet" aria-hidden="true">
-            <svg viewBox="0 0 20 20" width="20" height="20"><path d="M13.7 3.3a1 1 0 0 0-1.4 0L10 5.6 7.7 3.3a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 0 0 1.4 1.4L10 8.4l2.3 2.3a1 1 0 0 0 1.4-1.4L11.4 7l2.3-2.3a1 1 0 0 0 0-1.4z" fill="var(--dusty-rose)" opacity="0.7"/></svg>
+            <svg viewBox="0 0 20 20" width="20" height="20"><use href="#icon-x-circle" fill="var(--dusty-rose)" opacity="0.7"/></svg>
           </span>
           <span>I assumed you knew how I felt instead of actually saying it.</span>
         </li>
         <li class="crimes__item reveal" data-delay="300">
           <span class="crimes__bullet" aria-hidden="true">
-            <svg viewBox="0 0 20 20" width="20" height="20"><path d="M13.7 3.3a1 1 0 0 0-1.4 0L10 5.6 7.7 3.3a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 0 0 1.4 1.4L10 8.4l2.3 2.3a1 1 0 0 0 1.4-1.4L11.4 7l2.3-2.3a1 1 0 0 0 0-1.4z" fill="var(--dusty-rose)" opacity="0.7"/></svg>
+            <svg viewBox="0 0 20 20" width="20" height="20"><use href="#icon-x-circle" fill="var(--dusty-rose)" opacity="0.7"/></svg>
           </span>
           <span>I chose "fine" over "here's what's really going on."</span>
         </li>
         <li class="crimes__item reveal" data-delay="400">
           <span class="crimes__bullet" aria-hidden="true">
-            <svg viewBox="0 0 20 20" width="20" height="20"><path d="M13.7 3.3a1 1 0 0 0-1.4 0L10 5.6 7.7 3.3a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 0 0 1.4 1.4L10 8.4l2.3 2.3a1 1 0 0 0 1.4-1.4L11.4 7l2.3-2.3a1 1 0 0 0 0-1.4z" fill="var(--dusty-rose)" opacity="0.7"/></svg>
+            <svg viewBox="0 0 20 20" width="20" height="20"><use href="#icon-x-circle" fill="var(--dusty-rose)" opacity="0.7"/></svg>
           </span>
           <span>I made you feel like an option when you've always been the plan.</span>
         </li>
@@ -338,7 +404,7 @@
           </div>
           <h3 class="evidence__card-title">Exhibit B</h3>
           <p class="evidence__text">The text I left on read for three hours while I figured out how to say "I'm sorry" without making it about me.</p>
-          <svg class="evidence__doodle-accent" viewBox="0 0 30 30" width="24" height="24" aria-hidden="true"><circle cx="15" cy="15" r="12" fill="none" stroke="var(--mauve)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.4"/></svg>
+          <svg class="evidence__doodle-accent" viewBox="0 0 30 30" width="24" height="24" aria-hidden="true"><use href="#icon-dashed-circle-small" stroke="var(--mauve)"/></svg>
         </div>
         <div class="evidence__card reveal wobbly-border" data-delay="300">
           <div class="evidence__emoji" aria-hidden="true">
@@ -386,8 +452,7 @@
             <!-- Drawn musical note doodle -->
             <div class="player__note-doodle" aria-hidden="true">
               <svg viewBox="0 0 30 40" width="22" height="30">
-                <path d="M10 35 Q6 35 6 31 Q6 27 10 27 Q14 27 14 31 L14 8" fill="none" stroke="var(--honeycomb)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M14 8 Q14 4 20 3 Q24 2 24 6 Q24 10 18 10 L14 12" fill="none" stroke="var(--honeycomb)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <use href="#icon-note-small" stroke="var(--honeycomb)" stroke-width="1.8"/>
               </svg>
             </div>
             <div class="player__album">
@@ -404,13 +469,13 @@
             </div>
             <div class="player__controls">
               <button class="player__btn player__btn--prev" aria-label="Previous track" type="button">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="19 20 9 12 19 4"/><line x1="5" y1="4" x2="5" y2="20"/></svg>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><use href="#icon-chevron-left"/></svg>
               </button>
               <button class="player__btn player__btn--play bouncy-btn" id="play-btn" aria-label="Play" type="button">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="6 3 20 12 6 21"/></svg>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><use href="#icon-play"/></svg>
               </button>
               <button class="player__btn player__btn--next" aria-label="Next track" type="button">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 4 15 12 5 20"/><line x1="19" y1="4" x2="19" y2="20"/></svg>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><use href="#icon-chevron-right"/></svg>
               </button>
             </div>
             <div class="player__progress">
@@ -443,16 +508,16 @@
     <section class="rate-section" id="rate-section" aria-label="Rate this apology">
       <!-- Sparkle star doodles -->
       <div class="doodle doodle--sparkle doodle--rate-sp1" aria-hidden="true">
-        <svg viewBox="0 0 20 20" width="16" height="16"><path d="M10 2l1.5 6.5h6.5l-5 3.8 1.9 6.2L10 15l-4.9 3.5 1.9-6.2-5-3.8h6.5z" fill="none" stroke="var(--honeycomb)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 20 20" width="16" height="16"><use href="#icon-star5" stroke="var(--honeycomb)" stroke-width="1.2"/></svg>
       </div>
       <div class="doodle doodle--sparkle doodle--rate-sp2" aria-hidden="true">
-        <svg viewBox="0 0 20 20" width="14" height="14"><path d="M10 2l1.5 6.5h6.5l-5 3.8 1.9 6.2L10 15l-4.9 3.5 1.9-6.2-5-3.8h6.5z" fill="none" stroke="var(--dusty-rose)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 20 20" width="14" height="14"><use href="#icon-star5" stroke="var(--dusty-rose)" stroke-width="1.2"/></svg>
       </div>
       <div class="doodle doodle--sparkle doodle--rate-sp3" aria-hidden="true">
-        <svg viewBox="0 0 16 16" width="12" height="12"><path d="M8 1v14M1 8h14" stroke="var(--honeycomb)" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 16 16" width="12" height="12"><use href="#icon-sparkle" stroke="var(--honeycomb)" stroke-width="1.2"/></svg>
       </div>
       <div class="doodle doodle--heart doodle--rate-h1" aria-hidden="true">
-        <svg viewBox="0 0 20 20" width="14" height="14"><path d="M17 3.6a4.5 4.5 0 0 0-6.4 0L10 4.2l-.6-.6a4.5 4.5 0 0 0-6.4 6.4l.6.6L10 17l6.4-6.4.6-.6a4.5 4.5 0 0 0 0-6.4z" fill="none" stroke="var(--dusty-rose)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 20 20" width="14" height="14"><use href="#icon-leaf-drop" stroke="var(--dusty-rose)" stroke-width="1.2"/></svg>
       </div>
 
       <h2 class="section-title reveal">How Am I Doing?</h2>
@@ -479,19 +544,19 @@
         <p class="rate__prompt">Rate this apology</p>
         <div class="rate__stars" id="rate-stars" role="radiogroup" aria-label="Rating">
           <button class="rate__star bouncy-btn" data-rating="1" aria-label="1 star" type="button">
-            <svg viewBox="0 0 24 24" width="40" height="40"><path d="M12 2l2.4 7.4h7.8l-6.3 4.6 2.4 7.4L12 16.8l-6.3 4.6 2.4-7.4L1.8 9.4h7.8z" fill="none" stroke="var(--honeycomb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="star-path"/></svg>
+            <svg viewBox="0 0 24 24" width="40" height="40"><use href="#icon-star-rating" stroke="var(--honeycomb)"/></svg>
           </button>
           <button class="rate__star bouncy-btn" data-rating="2" aria-label="2 stars" type="button">
-            <svg viewBox="0 0 24 24" width="40" height="40"><path d="M12 2l2.4 7.4h7.8l-6.3 4.6 2.4 7.4L12 16.8l-6.3 4.6 2.4-7.4L1.8 9.4h7.8z" fill="none" stroke="var(--honeycomb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="star-path"/></svg>
+            <svg viewBox="0 0 24 24" width="40" height="40"><use href="#icon-star-rating" stroke="var(--honeycomb)"/></svg>
           </button>
           <button class="rate__star bouncy-btn" data-rating="3" aria-label="3 stars" type="button">
-            <svg viewBox="0 0 24 24" width="40" height="40"><path d="M12 2l2.4 7.4h7.8l-6.3 4.6 2.4 7.4L12 16.8l-6.3 4.6 2.4-7.4L1.8 9.4h7.8z" fill="none" stroke="var(--honeycomb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="star-path"/></svg>
+            <svg viewBox="0 0 24 24" width="40" height="40"><use href="#icon-star-rating" stroke="var(--honeycomb)"/></svg>
           </button>
           <button class="rate__star bouncy-btn" data-rating="4" aria-label="4 stars" type="button">
-            <svg viewBox="0 0 24 24" width="40" height="40"><path d="M12 2l2.4 7.4h7.8l-6.3 4.6 2.4 7.4L12 16.8l-6.3 4.6 2.4-7.4L1.8 9.4h7.8z" fill="none" stroke="var(--honeycomb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="star-path"/></svg>
+            <svg viewBox="0 0 24 24" width="40" height="40"><use href="#icon-star-rating" stroke="var(--honeycomb)"/></svg>
           </button>
           <button class="rate__star bouncy-btn" data-rating="5" aria-label="5 stars" type="button">
-            <svg viewBox="0 0 24 24" width="40" height="40"><path d="M12 2l2.4 7.4h7.8l-6.3 4.6 2.4 7.4L12 16.8l-6.3 4.6 2.4-7.4L1.8 9.4h7.8z" fill="none" stroke="var(--honeycomb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="star-path"/></svg>
+            <svg viewBox="0 0 24 24" width="40" height="40"><use href="#icon-star-rating" stroke="var(--honeycomb)"/></svg>
           </button>
         </div>
         <p class="rate__message" id="rate-message" aria-live="polite"></p>
@@ -528,15 +593,15 @@
       <h2 class="section-title reveal">Your Happiness Is a Smile</h2>
       <div class="smile__card reveal wobbly-border">
         <div class="smile__doodle-left" aria-hidden="true">
-          <svg viewBox="0 0 30 30" width="26" height="26"><path d="M15 3l3 8h8l-6.5 5 2.5 8L15 24l-7 5 2.5-8L4 11h8z" fill="none" stroke="var(--honeycomb)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/></svg>
+          <svg viewBox="0 0 30 30" width="26" height="26"><use href="#icon-star-doodle-small" stroke="var(--honeycomb)"/></svg>
         </div>
         <p class="smile__compliment" id="compliment" aria-live="polite">You have the kind of laugh that makes strangers smile.</p>
         <button class="smile__btn bouncy-btn" id="smile-btn" type="button">
           <span>Another one</span>
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><use href="#icon-arrow-down"/></svg>
         </button>
         <div class="smile__doodle-right" aria-hidden="true">
-          <svg viewBox="0 0 30 30" width="26" height="26"><circle cx="15" cy="15" r="12" fill="none" stroke="var(--dusty-rose)" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.4"/></svg>
+          <svg viewBox="0 0 30 30" width="26" height="26"><use href="#icon-dashed-circle" stroke="var(--dusty-rose)"/></svg>
         </div>
       </div>
     </section>

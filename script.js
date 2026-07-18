@@ -115,11 +115,12 @@
 
 
     // =============================================
-    // 2. HERO MESSAGE ROTATION
+    // 2. HERO MESSAGE ROTATION (pauses when out of view)
     // =============================================
     var msg1 = $('#msg-1');
     var msg2 = $('#msg-2');
     var currentMsg = 1;
+    var heroMsgTimer = null;
 
     function startHeroMessages() {
       if (REDUCED_MOTION) {
@@ -127,13 +128,35 @@
         return;
       }
 
-      setInterval(function () {
-        var cur = currentMsg === 1 ? msg1 : msg2;
-        var nxt = currentMsg === 1 ? msg2 : msg1;
-        if (cur) cur.classList.remove('hero__message--visible');
-        if (nxt) nxt.classList.add('hero__message--visible');
-        currentMsg = currentMsg === 1 ? 2 : 1;
-      }, 4000);
+      var heroEl = $('#hero');
+      if (!heroEl || !('IntersectionObserver' in window)) {
+        heroMsgTimer = setInterval(cycleHeroMsg, 4000);
+        return;
+      }
+
+      var heroObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            if (!heroMsgTimer) {
+              heroMsgTimer = setInterval(cycleHeroMsg, 4000);
+            }
+          } else {
+            if (heroMsgTimer) {
+              clearInterval(heroMsgTimer);
+              heroMsgTimer = null;
+            }
+          }
+        });
+      }, { threshold: 0.1 });
+      heroObs.observe(heroEl);
+    }
+
+    function cycleHeroMsg() {
+      var cur = currentMsg === 1 ? msg1 : msg2;
+      var nxt = currentMsg === 1 ? msg2 : msg1;
+      if (cur) cur.classList.remove('hero__message--visible');
+      if (nxt) nxt.classList.add('hero__message--visible');
+      currentMsg = currentMsg === 1 ? 2 : 1;
     }
 
 
@@ -255,6 +278,14 @@
 
       if (!starsContainer || !stars.length) return;
 
+      // Set ARIA roles for radiogroup pattern
+      starsContainer.setAttribute('role', 'radiogroup');
+      stars.forEach(function (star, i) {
+        star.setAttribute('role', 'radio');
+        star.setAttribute('aria-checked', 'false');
+        star.setAttribute('tabindex', i === 0 ? '0' : '-1');
+      });
+
       var ratingMessages = {
         1: "I deserve that. But I'll keep trying.",
         2: "Fair enough. I'm working on it.",
@@ -266,20 +297,21 @@
       function setStars(rating) {
         currentRating = rating;
         stars.forEach(function (star, i) {
-          var path = star.querySelector('.star-path');
-          if (path) {
+          var useEl = star.querySelector('.star-path');
+          if (useEl) {
             if (i < rating) {
-              path.setAttribute('fill', 'var(--honeycomb)');
-              path.setAttribute('stroke', 'var(--honeycomb)');
+              useEl.style.fill = 'var(--honeycomb)';
+              useEl.style.stroke = 'var(--honeycomb)';
               // Bouncy fill animation
               star.style.animation = 'none';
               star.offsetHeight;
               star.style.animation = '';
             } else {
-              path.setAttribute('fill', 'none');
-              path.setAttribute('stroke', 'var(--honeycomb)');
+              useEl.style.fill = 'none';
+              useEl.style.stroke = 'var(--honeycomb)';
             }
           }
+          star.setAttribute('aria-checked', i < rating ? 'true' : 'false');
         });
 
         if (rateMessage) {
@@ -310,27 +342,58 @@
         star.addEventListener('mouseenter', function () {
           var rating = parseInt(star.dataset.rating, 10);
           stars.forEach(function (s, i) {
-            var path = s.querySelector('.star-path');
-            if (path) {
+            var useEl = s.querySelector('.star-path');
+            if (useEl) {
               if (i < rating) {
-                path.setAttribute('fill', 'var(--honeycomb)');
-                path.setAttribute('stroke', 'var(--honeycomb)');
-                path.style.opacity = '0.7';
+                useEl.style.fill = 'var(--honeycomb)';
+                useEl.style.stroke = 'var(--honeycomb)';
+                useEl.style.opacity = '0.7';
               } else {
-                path.setAttribute('fill', 'none');
-                path.setAttribute('stroke', 'var(--honeycomb)');
-                path.style.opacity = '0.4';
+                useEl.style.fill = 'none';
+                useEl.style.stroke = 'var(--honeycomb)';
+                useEl.style.opacity = '0.4';
               }
             }
           });
+        });
+
+        // Keyboard navigation (WAI-ARIA radiogroup pattern)
+        star.addEventListener('keydown', function (e) {
+          var idx = stars.indexOf(star);
+          var newIdx = -1;
+
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            newIdx = (idx + 1) % stars.length;
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            newIdx = (idx - 1 + stars.length) % stars.length;
+          } else if (e.key === 'Home') {
+            e.preventDefault();
+            newIdx = 0;
+          } else if (e.key === 'End') {
+            e.preventDefault();
+            newIdx = stars.length - 1;
+          } else if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            setStars(parseInt(star.dataset.rating, 10));
+            return;
+          }
+
+          if (newIdx >= 0) {
+            stars[idx].setAttribute('tabindex', '-1');
+            stars[newIdx].setAttribute('tabindex', '0');
+            stars[newIdx].focus();
+            setStars(newIdx + 1);
+          }
         });
       });
 
       // Reset on mouse leave
       starsContainer.addEventListener('mouseleave', function () {
         stars.forEach(function (s) {
-          var path = s.querySelector('.star-path');
-          if (path) path.style.opacity = '';
+          var useEl = s.querySelector('.star-path');
+          if (useEl) useEl.style.opacity = '';
         });
         if (currentRating > 0) setStars(currentRating);
       });
@@ -363,8 +426,10 @@
       var ctx = canvas.getContext('2d');
       if (!ctx) return;
 
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      var dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      ctx.scale(dpr, dpr);
       canvas.classList.add('active');
 
       var particles = [];
@@ -372,6 +437,8 @@
       var particleCount = 150;
       var startTime = performance.now();
       var duration = 4000;
+      var displayWidth = window.innerWidth;
+      var displayHeight = window.innerHeight;
 
       function heartPath(x, y, size) {
         ctx.beginPath();
@@ -389,8 +456,8 @@
         var isHeart = Math.random() < 0.3;
         var isStar = !isHeart && Math.random() < 0.2;
         particles.push({
-          x: canvas.width / 2 + (Math.random() - 0.5) * canvas.width * 0.6,
-          y: canvas.height * 0.4,
+          x: displayWidth / 2 + (Math.random() - 0.5) * displayWidth * 0.6,
+          y: displayHeight * 0.4,
           vx: (Math.random() - 0.5) * 14,
           vy: -Math.random() * 20 - 5,
           size: isHeart ? Math.random() * 8 + 5 : Math.random() * 6 + 3,
@@ -424,12 +491,12 @@
         var progress = elapsed / duration;
 
         if (progress >= 1) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.clearRect(0, 0, displayWidth, displayHeight);
           canvas.classList.remove('active');
           return;
         }
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, displayWidth, displayHeight);
 
         var fadeOut = progress > 0.6 ? 1 - ((progress - 0.6) / 0.4) : 1;
 
@@ -565,19 +632,49 @@
         });
       });
 
-      // Hero cat: follows scroll with eyes (subtle)
+      // Hero cat: follows scroll with eyes (subtle, pauses when out of view)
       var heroCat = $('.doodle-cat--hero');
       if (heroCat && !REDUCED_MOTION) {
         var eyes = heroCat.querySelectorAll('.cat-eye');
         var eyeOrigCx = [];
         eyes.forEach(function (eye) { eyeOrigCx.push(parseFloat(eye.getAttribute('cx'))); });
-        window.addEventListener('scroll', function () {
+        var eyeActive = false;
+        var ticking = false;
+
+        function updateEyes() {
           var scrollPct = Math.min(window.scrollY / (window.innerHeight * 0.5), 1);
           var eyeOffset = (scrollPct - 0.5) * 3;
           eyes.forEach(function (eye, i) {
             eye.setAttribute('cx', eyeOrigCx[i] + eyeOffset);
           });
-        }, { passive: true });
+          ticking = false;
+        }
+
+        var eyeScrollHandler = function () {
+          if (eyeActive && !ticking) {
+            requestAnimationFrame(updateEyes);
+            ticking = true;
+          }
+        };
+
+        var heroSection = $('#hero');
+        if (heroSection && 'IntersectionObserver' in window) {
+          var eyeObs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                eyeActive = true;
+                window.addEventListener('scroll', eyeScrollHandler, { passive: true });
+              } else {
+                eyeActive = false;
+                window.removeEventListener('scroll', eyeScrollHandler);
+              }
+            });
+          }, { threshold: 0 });
+          eyeObs.observe(heroSection);
+        } else {
+          window.addEventListener('scroll', eyeScrollHandler, { passive: true });
+          eyeActive = true;
+        }
       }
 
       // Smile card: add a subtle bounce to the doodles on compliment change
@@ -651,10 +748,22 @@
       resizeTimer = setTimeout(function () {
         var canvas = $('#confetti-canvas');
         if (canvas && canvas.classList.contains('active')) {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
+          var dpr = window.devicePixelRatio || 1;
+          canvas.width = window.innerWidth * dpr;
+          canvas.height = window.innerHeight * dpr;
+          var ctx = canvas.getContext('2d');
+          if (ctx) ctx.scale(dpr, dpr);
         }
       }, 200);
+    });
+
+
+    // =============================================
+    // 12. CLEANUP ON PAGE UNLOAD
+    // =============================================
+    window.addEventListener('beforeunload', function () {
+      if (heroMsgTimer) { clearInterval(heroMsgTimer); heroMsgTimer = null; }
+      if (playerTimer) { clearInterval(playerTimer); playerTimer = null; }
     });
 
   }); // end onReady
